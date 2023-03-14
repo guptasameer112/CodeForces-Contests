@@ -4,6 +4,7 @@
 # include <string>
 # include <vector>
 # include <set>
+# include <cstdlib>
 # define INF 1e9
 # define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 # define fr(a, b, i) for(int i = a; i < b; i++)
@@ -25,58 +26,57 @@ using namespace std;
 
 int max(int a, int b) { return (a > b) ? a : b;}
 
+void printAnswer(vector<int> v) {
+    int count = 0;
+    fr(0, v.size(), i) {
+        if (v[i] > 0) {
+            count++;
+        }
+        else {
+            count--;
+        }
+        cout << count << " ";
+    }
+}
+
 void solve()
 {
     int n, m, x, i, j, k;
-    // cin >> n;
-    n = 7;
-    vector<int> v1 = {-1, 6, -4, 3, 2, 4, 1};
-    // fr(0, n, i) {
-    //     cin >> x;
-    //     v1.push_back(x);
-    // }
+    cin >> n;
+    // n = 3;
+    vector<int> v;
+    seev(v, n);
 
-    vector<int> min;
-    fr(0, n, i) {
-        min.push_back(v1[i]);
-    }
-    sort(min.begin(), min.end());
-    reverse(min.begin(), min.end());
+    // Max
+    sort(v.begin(), v.end());
+    reverse(v.begin(), v.end());
+    printAnswer(v);
+    cout << endl;
 
-    vector<int> minimum;
-    int count = 0;
-    for (int i = 0; i < n; i++) {
-        if (min[i] > 0) {
-            count++;
+    // Min
+    vector<int> v_min;
+    fr (0, n, i) {
+        fr (i + 1, n, j) {
+            if (v[i] == abs(v[j])) {
+                v_min.push_back(v[i]);
+                v_min.push_back(v[j]);
+            }
         }
-        else if (min[i] < 0) {
-            count--;
+    }
+
+    fr (0, n, i) {
+        int flag = 0;
+        fr (i + 1, n, j) {
+            if (v[i] == abs(v[j])) {
+                flag = 1;
+                break;
+            }
         }
-        minimum.push_back(count);
+        if (!flag && v[i] > 0) v_min.push_back(v[i]);
     }
 
-    vector<int> maxp;
-    sort(maxp.begin(), maxp.end());
-    vector<int> maxn;
-    vector<int> max;
-    for (int i = 0; i < n; i++) {
-        if(min[i] > 0) {maxp.push_back(min[i]);}
-        else {maxn.push_back(min[i]);}
-    }
-
-    for (int i = 0; i < maxp.size(); i++) {
-        (maxn.find(-maxp[i]))
-        
-    }
-    count = 0;
-
-    printArray(maxp);
+    printAnswer(v_min);
     cout << endl;
-    printArray(maxn);
-    cout << endl;
-    printArray(max);
-    cout << endl;
-    // printArray(maxn);
 }
 
 signed main()
@@ -89,8 +89,8 @@ signed main()
         freopen("output.txt", "w", stdout);
     #endif
 
-    // cin >> t;
-    t = 1;
+    cin >> t;
+    // t = 1;
 
     while (t--)
     {

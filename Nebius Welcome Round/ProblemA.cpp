@@ -27,48 +27,13 @@ int max(int a, int b) { return (a > b) ? a : b;}
 void solve()
 {
     int n, m, x, i, j, k;
-    cin >> n;
-    vector<int> v;
-    seev(v, n);
-
-    int answer = 0, c1 = 0, c2 = 0;
-
-    int flag = 0;
-    int count = 0;
-    fr (0, n, i) {
-        if (v[i] == 2) {
-            flag = 1;
-        }
-        if (v[i] == 1) {
-            count++;
-        }
+    cin >> n >> m;
+    if (abs(n) == abs(m)) { // forgor absolute here :P
+        cout << 2 * abs(n) << endl;
     }
-    if (flag == 0) {
-        cout << count << endl;
+    else {
+        cout << 2 * max(abs(n),abs(m)) - 1 << endl;
     }
-
-    if (flag == 1)
-    {
-        fr(0, n, i) {
-        if (v[i] == 2) {
-            c1 += c2;
-            c2 = 0;
-            if (c1 > 0) {
-                answer = max(answer, (c1 + 2) / 2);
-            }
-        }
-        else 
-        {
-            c2++;
-            if (c1 > 0) {
-                answer = max(answer, ((c1 + 2) / 2) + c2);
-            }
-        }
-    }
-
-    cout << answer << endl;
-    }
-    
 }
 
 signed main()

@@ -26,48 +26,37 @@ int max(int a, int b) { return (a > b) ? a : b;}
 
 void solve()
 {
-    int n, m, x, i, j, k;
-    cin >> n;
+    int n, m, x, i, k, d, w;
+    cin >> n >> k >> d >> w;
+
     vector<int> v;
     seev(v, n);
 
-    int answer = 0, c1 = 0, c2 = 0;
+    int answer = 0;
+    fr(0, n, i) {
+        int j = i;
+        while (j < n && (v[j] - v[i]) <= w && (j - i) <= k) {
+            // checking for max patient time and number of doses
+            j++;
+            ++answer;
 
-    int flag = 0;
-    int count = 0;
-    fr (0, n, i) {
-        if (v[i] == 2) {
-            flag = 1;
-        }
-        if (v[i] == 1) {
-            count++;
-        }
-    }
-    if (flag == 0) {
-        cout << count << endl;
-    }
-
-    if (flag == 1)
-    {
-        fr(0, n, i) {
-        if (v[i] == 2) {
-            c1 += c2;
-            c2 = 0;
-            if (c1 > 0) {
-                answer = max(answer, (c1 + 2) / 2);
+            if (j - i > k) {
+                // if there are more possible patients remaining than doses, then go to the last possible
+                i += k - 1;
             }
-        }
-        else 
-        {
-            c2++;
-            if (c1 > 0) {
-                answer = max(answer, ((c1 + 2) / 2) + c2);
+
+            else {
+                int rem = k - (j - i);
+                while (j < n && rem > 0 && v[j] - (v[i] + w) <= d) {
+                    rem--;
+                    j++;
+                    i = --j;
+                }
             }
         }
     }
 
     cout << answer << endl;
-    }
     
 }
 
